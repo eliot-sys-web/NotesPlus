@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>NotesPlus</title>
+<title>Notes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NotesPlus">
+<meta name="apple-mobile-web-app-title" content="Notes">
 <meta name="theme-color" content="#f2f2f7">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="Notes180.png">
@@ -285,6 +285,7 @@
 <!-- VUE LISTE -->
 <div id="notes-list-view">
 
+  <!-- Top nav -->
   <div style="display:flex; justify-content:space-between; align-items:center; padding:54px 20px 0;">
     <span style="color:#ffcc00; font-size:17px; cursor:pointer;">‹ Dossiers</span>
     <div style="width:30px; height:30px; border:1.5px solid #ffcc00; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;">
@@ -292,16 +293,19 @@
     </div>
   </div>
 
+  <!-- Titre -->
   <div style="padding:8px 20px 12px;">
     <h1 style="font-size:34px; font-weight:700; color:#fff; letter-spacing:0.3px;">iCloud (toutes)</h1>
   </div>
 
+  <!-- Barre de recherche -->
   <div style="margin:0 16px 20px; background:#1c1c1e; border-radius:12px; padding:9px 14px; display:flex; align-items:center; gap:8px;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
     <span style="color:#8e8e93; font-size:16px; flex:1;">Recherche</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 013 3v6a3 3 0 01-6 0V4a3 3 0 013-3z"/><path d="M19 10a7 7 0 01-14 0"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
   </div>
 
+  <!-- Section Aujourd'hui -->
   <div style="flex:1; overflow-y:auto; padding:0 16px 100px;">
     <h2 style="color:#fff; font-size:22px; font-weight:700; margin:0 0 10px 4px;">Aujourd'hui</h2>
 
@@ -309,8 +313,8 @@
 
       <!-- Note 1 : Wikipedia -->
       <div id="note-item-1" onclick="showEditorView('wikipedia')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c;">
-        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
-        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-1"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-1"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
         <div style="display:flex; align-items:center; gap:5px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span style="font-size:13px; color:#8e8e93;">Notes</span>
@@ -319,18 +323,18 @@
 
       <!-- Note 2 : BCGIS -->
       <div id="note-item-2" onclick="showEditorView('bcgis')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c;">
-        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
-        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-2"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-2"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
         <div style="display:flex; align-items:center; gap:5px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span style="font-size:13px; color:#8e8e93;">Notes</span>
         </div>
       </div>
 
-      <!-- Note 3 : Astro -->
-      <div id="note-item-3" onclick="showEditorView('astro')" style="padding:13px 16px; cursor:pointer;">
-        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
-        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-3"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+      <!-- Note 3 : Anniversaire -->
+      <div id="note-item-3" onclick="showEditorView('anniv')" style="padding:13px 16px; cursor:pointer;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-3"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
         <div style="display:flex; align-items:center; gap:5px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span style="font-size:13px; color:#8e8e93;">Notes</span>
@@ -340,6 +344,7 @@
     </div>
   </div>
 
+  <!-- Bottom bar -->
   <div class="bottom-bar">
     <span id="bottom-count">3 notes</span>
     <div class="new-note-btn" id="new-note-btn">
@@ -414,60 +419,32 @@ const COVER_TEXT = "Sa date de naissance";
 const COVER_TRIGGER = "  ";
 const BCGIS_TEXT = "BCGIS";
 
-// Mapping signe astrologique : numéro → { nom, mois1, jourLimite, mois2 }
-// Si jour <= jourLimite → mois1, sinon → mois2
-// jourLimite = dernier jour du premier mois du signe
-const SIGNES = {
-  1:  { nom: 'Bélier',      mois1: 'mars',      limite: 31, mois2: 'avril'     }, // 21 mars – 19 avril
-  2:  { nom: 'Taureau',     mois1: 'avril',     limite: 30, mois2: 'mai'       }, // 20 avril – 20 mai
-  3:  { nom: 'Gémeaux',     mois1: 'mai',       limite: 31, mois2: 'juin'      }, // 21 mai – 20 juin
-  4:  { nom: 'Cancer',      mois1: 'juin',      limite: 30, mois2: 'juillet'   }, // 21 juin – 22 juillet
-  5:  { nom: 'Lion',        mois1: 'juillet',   limite: 31, mois2: 'août'      }, // 23 juillet – 22 août
-  6:  { nom: 'Vierge',      mois1: 'août',      limite: 31, mois2: 'septembre' }, // 23 août – 22 sept
-  7:  { nom: 'Scorpion',    mois1: 'octobre',   limite: 31, mois2: 'novembre'  }, // 23 oct – 21 nov
-  8:  { nom: 'Sagittaire',  mois1: 'novembre',  limite: 30, mois2: 'décembre'  }, // 22 nov – 21 déc
-  9:  { nom: 'Capricorne',  mois1: 'décembre',  limite: 31, mois2: 'janvier'   }, // 22 déc – 19 janv
-  10: { nom: 'Verseau',     mois1: 'janvier',   limite: 31, mois2: 'février'   }, // 20 janv – 18 fév
-  11: { nom: 'Poissons',    mois1: 'février',   limite: 29, mois2: 'mars'      }, // 19 fév – 20 mars
-  12: { nom: 'Balance',     mois1: 'septembre', limite: 30, mois2: 'octobre'   }, // 23 sept – 22 oct
+// Signes astro : numéro saisi → mois de début (standard)
+const SIGNES_MOIS = {
+  1: 3,   // Bélier  (21 mars)
+  2: 4,   // Taureau (20 avril)
+  3: 5,   // Gémeaux (21 mai)
+  4: 6,   // Cancer  (21 juin)
+  5: 7,   // Lion    (23 juillet)
+  6: 8,   // Vierge  (23 août)
+  7: 9,   // Balance (23 sept)
+  8: 10,  // Scorpion(23 oct)
+  9: 11,  // Sagittaire (22 nov)
+  10: 12, // Capricorne (22 déc)
+  11: 1,  // Verseau (20 jan)
+  12: 2,  // Poissons(19 fév)
 };
 
-// Seuil : premier jour du deuxième mois du signe (si jour >= seuil → mois2)
-const SEUILS = {
-  1:  20, // Bélier : à partir du 20 avril → avril
-  2:  21, // Taureau : à partir du 21 mai → mai
-  3:  21, // Gémeaux : à partir du 21 juin → juin
-  4:  23, // Cancer : à partir du 23 juillet → juillet
-  5:  23, // Lion : à partir du 23 août → août
-  6:  23, // Vierge : à partir du 23 sept → sept
-  7:  23, // Scorpion : à partir du 23 oct → oct (déjà mois1)
-  8:  22, // Sagittaire : à partir du 22 nov → nov (déjà mois1)
-  9:  22, // Capricorne : à partir du 22 déc → déc (déjà mois1)
-  10: 20, // Verseau : à partir du 20 janv → janv (déjà mois1)
-  11: 19, // Poissons : à partir du 19 fév → fév (déjà mois1)
-  12: 23, // Balance : à partir du 23 sept → sept (déjà mois1)
-};
-
-// Retourne le nom du mois à partir du numéro de signe et du jour
-function getMoisFromSigne(numSigne, jour) {
-  const s = SIGNES[numSigne];
-  if (!s) return null;
-  const seuil = SEUILS[numSigne];
-  // Si jour >= seuil → on est encore dans mois1 (début du signe)
-  // Si jour < seuil → on est dans mois2 (fin du signe)
-  if (jour >= seuil) {
-    return s.mois1;
-  } else {
-    return s.mois2;
-  }
-}
+const MOIS = ['janvier','février','mars','avril','mai','juin',
+              'juillet','août','septembre','octobre','novembre','décembre'];
 
 // ============================================================
 // STATE
 // ============================================================
-let currentNoteMode = null; // 'wikipedia' | 'bcgis' | 'astro'
+let currentNoteMode = null; // 'wikipedia' | 'bcgis' | 'anniv'
 
 const state = {
+  // wikipedia
   phase: 'title',
   realText: '',
   displayLines: [],
@@ -480,16 +457,24 @@ const state = {
   spaceCount: 0,
   coverSpacePressed: false,
   dateWaiting: false,
+  // bcgis
   bcgisDone: false,
   bcgisDisplayIndex: 0,
-  // Astro
-  astroSigneBuffer: '',    // chiffres tapés pour le signe (ex: "7" ou "12")
-  astroJourBuffer: '',     // chiffres tapés pour le jour
-  astroSigneValidé: false, // true quand espace après signe reçu
-  astroJourValidé: false,  // true quand espace après jour reçu
-  astroMoisBuffer: '',     // nom du mois calculé, à typer lettre par lettre
-  astroMoisIndex: 0,       // index d'affichage du mois
-  astroMoisTyping: false,  // en train de taper le mois automatiquement
+  // anniv
+  annivStep: 0,
+  // annivStep 0 : attente signe (chiffre 1-12)
+  // annivStep 1 : attente jour
+  // annivStep 2 : attente annee leurre
+  // annivStep 3 : attente annee spectateur
+  // annivStep 4 : résultat affiché, saisie libre
+  annivInputBuffer: '',   // buffer de saisie courante (chiffres)
+  annivSigne: null,
+  annivJour: null,
+  annivAnneeLeurre: null,
+  annivAnneeSpectateur: null,
+  annivCoverText: "Son mois de naissance",
+  annivCoverIndex: 0,
+  annivCoverDone: false,
 };
 
 // ============================================================
@@ -529,40 +514,32 @@ function initEditor(mode) {
       spaceCount: 0,
       coverSpacePressed: false,
       dateWaiting: false,
-      bcgisDone: false,
-      bcgisDisplayIndex: 0,
     });
+
   } else if (mode === 'bcgis') {
     Object.assign(state, {
       phase: 'bcgis-cover',
-      realText: '',
       displayLines: [''],
       currentLineIndex: 0,
       bcgisDone: false,
       bcgisDisplayIndex: 0,
     });
-  } else if (mode === 'astro') {
+
+  } else if (mode === 'anniv') {
     Object.assign(state, {
-      phase: 'astro-line1',
-      realText: '',
+      phase: 'anniv',
       displayLines: [''],
       currentLineIndex: 0,
-      // Ligne 1
-      astroSigneBuffer: '',
-      astroJourBuffer: '',
-      astroSigneValidé: false,
-      astroJourValidé: false,
-      astroMoisBuffer: '',
-      astroMoisIndex: 0,
-      astroMoisTyping: false,
-      // Ligne 2
-      astroAnnéeBuffer: '',
-      astroAnnéeValidée: false,
-      astroMois2Index: 0,
-      astroMois2Typing: false,
+      annivStep: 0,
+      annivInputBuffer: '',
+      annivSigne: null,
+      annivJour: null,
+      annivAnneeLeurre: null,
+      annivAnneeSpectateur: null,
+      annivCoverIndex: 0,
+      annivCoverDone: false,
     });
   }
-
 
   renderDisplay();
 }
@@ -592,7 +569,7 @@ function renderDisplay() {
 }
 
 // ============================================================
-// EDITEUR - INPUT
+// INPUT
 // ============================================================
 function focusHiddenInput() {
   document.getElementById('hidden-input').focus();
@@ -606,15 +583,21 @@ async function handleKeyDown(e) {
   e.preventDefault();
   const key = e.key;
   if (key === 'Backspace') { handleBackspace(); return; }
-  if (key === 'Enter') { handleEnter(); return; }
-  if (key.length > 1) return;
+  if (key === 'Enter')     { handleEnter();    return; }
+  if (key.length > 1)      return;
   handleChar(key);
 }
 
 // ============================================================
-// GESTION DES CARACTÈRES
+// CHAR
 // ============================================================
 async function handleChar(char) {
+
+  // ===== MODE ANNIV =====
+  if (currentNoteMode === 'anniv') {
+    annivHandleChar(char);
+    return;
+  }
 
   // ===== MODE BCGIS =====
   if (currentNoteMode === 'bcgis') {
@@ -637,17 +620,10 @@ async function handleChar(char) {
     return;
   }
 
-  // ===== MODE ASTRO =====
-  if (currentNoteMode === 'astro') {
-    handleCharAstro(char);
-    return;
-  }
-
   // ===== MODE WIKIPEDIA =====
   if (state.phase === 'title') {
     state.displayLines[0] += char;
     renderDisplay();
-    saveCurrentNote();
     return;
   }
 
@@ -669,7 +645,6 @@ async function handleChar(char) {
       state.coverDisplayIndex++;
       state.displayLines[state.currentLineIndex] = COVER_TEXT.substring(0, state.coverDisplayIndex);
       renderDisplay();
-      saveCurrentNote();
     }
     return;
   }
@@ -680,182 +655,183 @@ async function handleChar(char) {
       state.dateDisplayIndex++;
     }
     renderDisplay();
-    saveCurrentNote();
     return;
   }
 
   if (state.phase === 'free-multi') {
     state.displayLines[state.currentLineIndex] += char;
     renderDisplay();
-    saveCurrentNote();
     return;
   }
 }
 
 // ============================================================
-// MODE ASTRO - LOGIQUE PRINCIPALE
+// MODE ANNIV - LOGIQUE
 // ============================================================
-function handleCharAstro(char) {
+function annivHandleChar(char) {
+  const step = state.annivStep;
 
-  // --- Phase astro-line1 : saisie du signe et du jour ---
-  if (state.phase === 'astro-line1') {
+  // Steps 0-3 : on attend des chiffres, validés par Entrée
+  // On affiche le cover "Son mois de naissance" lettre à lettre pendant la saisie
+  if (step <= 3) {
+    if (/\d/.test(char)) {
+      state.annivInputBuffer += char;
 
-    // Tant que le signe n'est pas validé
-    if (!state.astroSigneValidé) {
-      if (char === ' ') {
-        // L'espace valide le signe, on affiche l'espace réellement
-        if (state.astroSigneBuffer.length > 0) {
-          state.astroSigneValidé = true;
-          state.displayLines[state.currentLineIndex] += ' ';
-          renderDisplay();
-        }
-      } else {
-        // On accepte uniquement les chiffres (1 ou 2 chiffres max)
-        if (/\d/.test(char) && state.astroSigneBuffer.length < 2) {
-          state.astroSigneBuffer += char;
-          state.displayLines[state.currentLineIndex] += char;
-          renderDisplay();
-        }
-      }
-      return;
-    }
-
-    // Signe validé, on saisit le jour
-    if (!state.astroJourValidé) {
-      if (char === ' ') {
-        // L'espace valide le jour → on déclenche le cover typing du mois
-        if (state.astroJourBuffer.length > 0) {
-          state.astroJourValidé = true;
-          const numSigne = parseInt(state.astroSigneBuffer);
-          const jour = parseInt(state.astroJourBuffer);
-          const mois = getMoisFromSigne(numSigne, jour);
-          if (mois) {
-            state.astroMoisBuffer = mois;
-          } else {
-            state.astroMoisBuffer = 'inconnu';
+      // Avancer le cover lettre par lettre si pas encore fini
+      if (step === 0 && !state.annivCoverDone) {
+        if (state.annivCoverIndex < state.annivCoverText.length) {
+          state.annivCoverIndex++;
+          state.displayLines[0] = state.annivCoverText.substring(0, state.annivCoverIndex);
+          if (state.annivCoverIndex >= state.annivCoverText.length) {
+            state.annivCoverDone = true;
           }
-          state.astroMoisIndex = 0;
-          state.astroMoisTyping = true;
-          // On démarre le typing automatique du mois
-          autoTypeMois();
-        }
-      } else {
-        // On accepte uniquement les chiffres (1 ou 2 chiffres max pour le jour)
-        if (/\d/.test(char) && state.astroJourBuffer.length < 2) {
-          state.astroJourBuffer += char;
-          state.displayLines[state.currentLineIndex] += char;
-          renderDisplay();
         }
       }
-      return;
-    }
-
-    // Mois en cours de typing automatique → chaque touche = lettre suivante du mois
-    if (state.astroMoisTyping) {
-      if (state.astroMoisIndex < state.astroMoisBuffer.length) {
-        const baseText = state.astroSigneBuffer + ' ' + state.astroJourBuffer + ' ';
-        state.astroMoisIndex++;
-        state.displayLines[state.currentLineIndex] = baseText + state.astroMoisBuffer.substring(0, state.astroMoisIndex);
-        renderDisplay();
-        if (state.astroMoisIndex >= state.astroMoisBuffer.length) {
-          state.astroMoisTyping = false;
-          // Passe en astro-free pour la suite de la ligne
-          state.phase = 'astro-free-line1';
-        }
-      }
-      return;
-    }
-
-    return;
-  }
-
-  // --- Phase astro-free-line1 : suite libre sur la ligne 1 ---
-  if (state.phase === 'astro-free-line1') {
-    state.displayLines[state.currentLineIndex] += char;
-    renderDisplay();
-    return;
-  }
-
-  // --- Phase astro-line2 : saisie de l'année + cover typing du mois ---
-  if (state.phase === 'astro-line2') {
-    handleCharAstroLine2(char);
-    return;
-  }
-
-  // --- Phase astro-free : saisie libre après ligne 2 ---
-  if (state.phase === 'astro-free') {
-    state.displayLines[state.currentLineIndex] += char;
-    renderDisplay();
-    return;
-  }
-}
-
-// ============================================================
-// MODE ASTRO - LIGNE 2 (année + mois)
-/function handleCharAstroLine2(char) {
-
-  if (!state.astroAnnéeValidée) {
-    if (char === ' ') {
-      if (state.astroAnnéeBuffer && state.astroAnnéeBuffer.length > 0) {
-        state.astroAnnéeValidée = true;
-        state.displayLines[state.currentLineIndex] += ' ';
-        state.astroMois2Index = 0;
-        state.astroMois2Typing = true;
-        renderDisplay();
-      }
-    } else {
-      if (/\d/.test(char) && state.astroAnnéeBuffer.length < 4) {
-        state.astroAnnéeBuffer += char;
-        state.displayLines[state.currentLineIndex] += char;
-        renderDisplay();
-      }
-    }
-    return;
-  }
-
-  if (state.astroMois2Typing) {
-    if (state.astroMois2Index < state.astroMoisBuffer.length) {
-      const baseText = state.astroAnnéeBuffer + ' ';
-      state.astroMois2Index++;
-      state.displayLines[state.currentLineIndex] = baseText + state.astroMoisBuffer.substring(0, state.astroMois2Index);
+      // Steps 1-3 : afficher le chiffre sur la ligne courante (invisible car on écrit la valeur réelle)
+      // On n'affiche rien de visible pour les valeurs intermédiaires
       renderDisplay();
-      if (state.astroMois2Index >= state.astroMoisBuffer.length) {
-        state.astroMois2Typing = false;
-        state.phase = 'astro-free';
-      }
     }
     return;
   }
 
-  // ✅ Corrigé : plus de vérification state.phase ici
-  if (state.astroAnnéeValidée && !state.astroMois2Typing) {
+  // Step 4 : saisie libre après résultat
+  if (step === 4) {
     state.displayLines[state.currentLineIndex] += char;
     renderDisplay();
   }
 }
 
+function annivHandleEnter() {
+  const step = state.annivStep;
+  const buf = state.annivInputBuffer.trim();
 
-// ============================================================
-// AUTO-TYPING DU MOIS (ligne 1)
-// ============================================================
-function autoTypeMois() {
-  // Pas d'auto-typing ici : chaque touche = une lettre du mois
-  // (géré dans handleCharAstro)
+  if (step === 0) {
+    // Valider le signe
+    const n = parseInt(buf);
+    if (!isNaN(n) && n >= 1 && n <= 12) {
+      state.annivSigne = n;
+      state.annivStep = 1;
+      state.annivInputBuffer = '';
+      // Nouvelle ligne pour attendre le jour
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      renderDisplay();
+    }
+    return;
+  }
+
+  if (step === 1) {
+    // Valider le jour
+    const n = parseInt(buf);
+    if (!isNaN(n) && n >= 1 && n <= 31) {
+      state.annivJour = n;
+      state.annivStep = 2;
+      state.annivInputBuffer = '';
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      renderDisplay();
+    }
+    return;
+  }
+
+  if (step === 2) {
+    // Valider année leurre
+    const n = parseInt(buf);
+    if (!isNaN(n) && n > 1000) {
+      state.annivAnneeLeurre = n;
+      state.annivStep = 3;
+      state.annivInputBuffer = '';
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      renderDisplay();
+    }
+    return;
+  }
+
+  if (step === 3) {
+    // Valider année spectateur → calcul et affichage
+    const n = parseInt(buf);
+    if (!isNaN(n) && n > 1000) {
+      state.annivAnneeSpectateur = n;
+      state.annivStep = 4;
+      state.annivInputBuffer = '';
+
+      const moisResult = calculerMoisNaissance(
+        state.annivSigne,
+        state.annivJour,
+        state.annivAnneeLeurre,
+        state.annivAnneeSpectateur
+      );
+
+      // Afficher le résultat sur une nouvelle ligne, lettre par lettre
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      renderDisplay();
+      autoTypeLine(moisResult, state.currentLineIndex, () => {
+        // Après affichage, prêt pour saisie libre
+      });
+    }
+    return;
+  }
+
+  if (step === 4) {
+    // Saisie libre : nouvelle ligne
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    renderDisplay();
+  }
+}
+
+function calculerMoisNaissance(signeCode, jour, anneeLeurre, anneeSpectateur) {
+  const moisNaissance = SIGNES_MOIS[signeCode];
+  if (!moisNaissance) return "Signe invalide";
+
+  // Jour de la semaine de la vraie date de naissance
+  let realDate;
+  try {
+    realDate = new Date(anneeSpectateur, moisNaissance - 1, jour);
+  } catch(e) {
+    return "Date invalide";
+  }
+  const jourSemaineCible = realDate.getDay(); // 0=dim ... 6=sam
+
+  // Chercher dans quelle mois, avec l'année leurre, ce même jour tombe
+  for (let m = 1; m <= 12; m++) {
+    try {
+      const d = new Date(anneeLeurre, m - 1, jour);
+      if (d.getDate() === jour && d.getDay() === jourSemaineCible) {
+        return MOIS[m - 1];
+      }
+    } catch(e) {}
+  }
+  return "Introuvable";
+}
+
+function autoTypeLine(text, lineIndex, callback) {
+  let i = 0;
+  function step() {
+    if (i >= text.length) {
+      if (callback) callback();
+      return;
+    }
+    state.displayLines[lineIndex] = text.substring(0, i + 1);
+    i++;
+    renderDisplay();
+    setTimeout(step, 80);
+  }
+  step();
 }
 
 // ============================================================
-// AUTO-TYPING DU MOIS (ligne 2)
-// ============================================================
-function autoTypeMoisLigne2() {
-  // Pareil : chaque touche = une lettre (géré dans handleCharAstroLine2)
-}
-
-// ============================================================
-// GESTION ENTRÉE
+// ENTER
 // ============================================================
 async function handleEnter() {
 
-  // ===== MODE BCGIS =====
+  if (currentNoteMode === 'anniv') {
+    annivHandleEnter();
+    return;
+  }
+
   if (currentNoteMode === 'bcgis') {
     if (state.phase === 'bcgis-free' || state.phase === 'bcgis-cover') {
       state.currentLineIndex++;
@@ -866,13 +842,7 @@ async function handleEnter() {
     return;
   }
 
-  // ===== MODE ASTRO =====
-  if (currentNoteMode === 'astro') {
-    handleEnterAstro();
-    return;
-  }
-
-  // ===== MODE WIKIPEDIA =====
+  // Wikipedia
   if (state.currentLineIndex === 0 && state.phase === 'title') {
     state.currentLineIndex = 1;
     if (!state.displayLines[1]) state.displayLines.push('');
@@ -890,7 +860,7 @@ async function handleEnter() {
     state.displayLines.push('');
     state.phase = 'date-typing';
     state.dateDisplayIndex = 0;
-    if (!state.dateBuffer) { state.dateWaiting = true; }
+    if (!state.dateBuffer) state.dateWaiting = true;
     renderDisplay();
     return;
   }
@@ -912,36 +882,7 @@ async function handleEnter() {
 }
 
 // ============================================================
-// MODE ASTRO - GESTION ENTRÉE
-// ============================================================
-function handleEnterAstro() {
-
-  // Entrée sur la ligne 1 → passe à la ligne 2
-  if (state.phase === 'astro-line1' || state.phase === 'astro-free-line1') {
-    state.currentLineIndex++;
-    state.displayLines.push('');
-    // Réinitialise les variables de ligne 2
-    state.astroAnnéeBuffer = '';
-    state.astroAnnéeValidée = false;
-    state.astroMois2Index = 0;
-    state.astroMois2Typing = false;
-    state.phase = 'astro-line2';
-    renderDisplay();
-    return;
-  }
-
-  // Entrée sur la ligne 2 ou en mode libre → nouvelle ligne libre
-  if (state.phase === 'astro-line2' || state.phase === 'astro-free') {
-    state.currentLineIndex++;
-    state.displayLines.push('');
-    state.phase = 'astro-free';
-    renderDisplay();
-    return;
-  }
-}
-
-// ============================================================
-// GESTION BACKSPACE
+// BACKSPACE
 // ============================================================
 function handleBackspace() {
   const line = state.displayLines[state.currentLineIndex];
@@ -964,14 +905,16 @@ function handleBackspace() {
         state.phase = 'bcgis-cover';
       }
     }
+    if (currentNoteMode === 'anniv' && state.annivInputBuffer.length > 0) {
+      state.annivInputBuffer = state.annivInputBuffer.slice(0, -1);
+    }
   } else if (state.currentLineIndex > 0) {
     state.displayLines.splice(state.currentLineIndex, 1);
     state.currentLineIndex--;
-    if (state.currentLineIndex === 0) state.phase = 'title';
+    if (state.currentLineIndex === 0 && currentNoteMode === 'wikipedia') state.phase = 'title';
   }
 
   renderDisplay();
-  if (currentNoteMode === 'wikipedia') saveCurrentNote();
 }
 
 // ============================================================
@@ -988,7 +931,6 @@ async function fetchBirthdate(name) {
 
     if (!searchData.query.search.length) {
       state.dateBuffer = 'Date inconnue';
-      indicator.style.display = 'none';
       if (state.dateWaiting) { state.dateWaiting = false; autoTypeDate(); }
       return;
     }
@@ -1003,7 +945,6 @@ async function fetchBirthdate(name) {
 
     if (!wikidataId) {
       state.dateBuffer = 'Date inconnue';
-      indicator.style.display = 'none';
       if (state.dateWaiting) { state.dateWaiting = false; autoTypeDate(); }
       return;
     }
@@ -1039,16 +980,12 @@ function autoTypeDate() {
   state.displayLines[state.currentLineIndex] = state.dateBuffer.substring(0, state.dateDisplayIndex + 1);
   state.dateDisplayIndex++;
   renderDisplay();
-  saveCurrentNote();
   setTimeout(autoTypeDate, 80);
 }
 
 // ============================================================
 // UTILITAIRES
 // ============================================================
-const MOIS = ['janvier','février','mars','avril','mai','juin',
-               'juillet','août','septembre','octobre','novembre','décembre'];
-
 function formatBirthdate(day, month, year) {
   const d = String(day).padStart(2, '0');
   return `${d} ${MOIS[month - 1]} ${year}`;
@@ -1065,20 +1002,11 @@ function formatDateFR(date) {
   return `${j} ${d} ${m} ${y} à ${h}:${min}`;
 }
 
-function saveNotes() {
-  localStorage.setItem('notes', JSON.stringify([]));
-}
-
-function saveCurrentNote() {}
-
 // ============================================================
-// ÉVÉNEMENTS GLOBAUX
+// EVENTS
 // ============================================================
 document.getElementById('new-note-btn').addEventListener('click', () => {});
-
-document.getElementById('back-btn').addEventListener('click', () => {
-  showListView();
-});
+document.getElementById('back-btn').addEventListener('click', () => { showListView(); });
 
 // ============================================================
 // INIT
