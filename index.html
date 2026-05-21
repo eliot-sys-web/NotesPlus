@@ -775,18 +775,19 @@ function calculerMoisNaissance(jour, anneeLeurre, anneeSpectateur) {
   const moisNaissance = SIGNES_MOIS[state.annivSigne];
   if (!moisNaissance) return "Signe invalide";
 
+  // Jour réel du spectateur dans le mois de son signe
   const realDate = new Date(anneeSpectateur, moisNaissance - 1, jour);
   const jourSemaineCible = realDate.getDay();
 
+  // Chercher le mois tel que le [code_signe] / [mois] / [anneeLeurre] tombe le même jour de semaine
   for (let m = 1; m <= 12; m++) {
-    const d = new Date(anneeLeurre, m - 1, jour);
-    if (d.getDate() === jour && d.getDay() === jourSemaineCible) {
+    const d = new Date(anneeLeurre, m - 1, state.annivSigne);
+    if (d.getDate() === state.annivSigne && d.getDay() === jourSemaineCible) {
       return MOIS[m - 1];
     }
   }
   return "Introuvable";
 }
-
 function autoTypeLine(text, lineIndex, callback) {
   let i = 0;
   function step() {
