@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Notes">
+<meta name="theme-color" content="#f2f2f7">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="Notes180.png">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: #000;
+    font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #notes-list-view {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #000;
+  }
+
+  .list-header {
+    padding: 60px 16px 8px;
+    background: #000;
+  }
+
+  .list-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+
+  .list-header p {
+    font-size: 13px;
+    color: #8e8e93;
+    margin-top: 2px;
+  }
+
+  .notes-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 16px;
+    background: #000;
+  }
+
+  .note-item {
+    background: #1c1c1e;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .note-item:active {
+    opacity: 0.6;
+  }
+
+  .note-item .note-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .note-item .note-preview {
+    font-size: 14px;
+    color: #8e8e93;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px 34px;
+    background: #000;
+    border-top: 0.5px solid #38383a;
+  }
+
+  .bottom-bar span {
+    font-size: 13px;
+    color: #8e8e93;
+  }
+
+  .new-note-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .new-note-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #ffcc00;
+  }
+
+  #note-editor-view {
+    display: none;
+    flex-direction: column;
+    height: 100vh;
+    background: #000;
+  }
+
+  .editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 56px 16px 8px;
+    border-bottom: 0.5px solid #38383a;
+    background: #000;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ffcc00;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .back-btn svg {
+    width: 11px;
+    height: 18px;
+    fill: none;
+    stroke: #ffcc00;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .editor-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .editor-actions svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #ffcc00;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  cursor: pointer;
+}
+
+.ok-btn {
+  color: #ffcc00;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+  .editor-date {
+    text-align: center;
+    font-size: 12px;
+    color: #8e8e93;
+    padding: 6px 0 4px;
+    background: #000;
+  }
+
+  .editor-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px 40px;
+    position: relative;
+    background: #000;
+  }
+
+  #display-area {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #fff;
+    min-height: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+    caret-color: transparent;
+    outline: none;
+  }
+
+  #display-area .title-line {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    display: block;
+  }
+
+  #display-area .body-line {
+    font-size: 17px;
+    font-weight: 400;
+    display: block;
+    min-height: 1.6em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: #007aff;
+    vertical-align: text-bottom;
+    margin-left: 1px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  #hidden-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .editor-toolbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  padding-bottom: 28px;
+  background: #1c1c1e;
+  border-top: 1px solid #3a3a3c;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: -apple-system, sans-serif;
+}
+
+
+
+  .editor-toolbar svg {
+  fill: none;
+  stroke: #ffcc00;
+  stroke-width: 2;
+}
+
+
+  #wiki-indicator {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1c1c1e;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    z-index: 999;
+  }
+</style>
+</head>
+<body>
+
+<!-- VUE LISTE -->
+<!-- VUE LISTE -->
+<div id="notes-list-view">
+
+  <!-- Top nav -->
+  <div style="display:flex; justify-content:space-between; align-items:center; padding:54px 20px 0;">
+    <span style="color:#ffcc00; font-size:17px; cursor:pointer;">‹ Dossiers</span>
+    <div style="width:30px; height:30px; border:1.5px solid #ffcc00; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+      <span style="color:#ffcc00; font-size:14px; letter-spacing:1px; line-height:1; margin-top:-2px;">•••</span>
+    </div>
+  </div>
+
+  <!-- Titre -->
+  <div style="padding:8px 20px 12px;">
+    <h1 style="font-size:34px; font-weight:700; color:#fff; letter-spacing:0.3px;">iCloud (toutes)</h1>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div style="margin:0 16px 20px; background:#1c1c1e; border-radius:12px; padding:9px 14px; display:flex; align-items:center; gap:8px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+    <span style="color:#8e8e93; font-size:16px; flex:1;">Recherche</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 013 3v6a3 3 0 01-6 0V4a3 3 0 013-3z"/><path d="M19 10a7 7 0 01-14 0"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+  </div>
+
+  <!-- Section Aujourd'hui -->
+  <div style="flex:1; overflow-y:auto; padding:0 16px 100px;">
+    <h2 style="color:#fff; font-size:22px; font-weight:700; margin:0 0 10px 4px;">Aujourd'hui</h2>
+
+    <div style="background:#1c1c1e; border-radius:12px; overflow:hidden;">
+
+      <!-- Note 1 : Wikipedia -->
+      <div id="note-item-1" onclick="showEditorView('wikipedia')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c; active:opacity:0.6;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-1"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span style="font-size:13px; color:#8e8e93;">Notes</span>
+        </div>
+      </div>
+
+      <!-- Note 2 : BCGIS -->
+      <div id="note-item-2" onclick="showEditorView('bcgis')" style="padding:13px 16px; cursor:pointer;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-2"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span style="font-size:13px; color:#8e8e93;">Notes</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <span id="bottom-count">2 notes</span>
+    <div class="new-note-btn" id="new-note-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.707 5.826l-2.534-2.533a1 1 0 00-1.414 0L3.25 17.337a1 1 0 00-.274.51L2 23l5.154-.976a1 1 0 00.51-.274L21.18 8.24a1 1 0 000-1.414zM18.88 4.707l.413.413-1.586 1.586-.413-.413 1.586-1.586zM4.967 18.23l9.657-9.657 1.8 1.8-9.655 9.658-2.56.485.758-2.286z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- VUE EDITEUR -->
+<div id="note-editor-view">
+  <div class="editor-header">
+  <div class="back-btn" id="back-btn">
+    <svg viewBox="0 0 11 18"><polyline points="10,1 1,9 10,17"/></svg>
+    Retour
+  </div>
+  <div class="editor-actions">
+    <!-- Annuler -->
+    <svg viewBox="0 0 24 24" title="Annuler">
+      <path d="M9 14L4 9l5-5"/>
+      <path d="M4 9h10.5a4.5 4.5 0 010 9H11" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <!-- Rétablir -->
+    <svg viewBox="0 0 24 24" title="Rétablir">
+      <path d="M15 14l5-5-5-5"/>
+      <path d="M20 9H9.5a4.5 4.5 0 000 9H13" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <!-- Partager -->
+    <svg viewBox="0 0 24 24" title="Partager">
+      <path d="M12 2v13M7 7l5-5 5 5" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20 14v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <!-- Plus d'options -->
+    <svg viewBox="0 0 24 24" title="Plus">
+      <circle cx="5" cy="12" r="1.5" fill="#ffcc00"/>
+      <circle cx="12" cy="12" r="1.5" fill="#ffcc00"/>
+      <circle cx="19" cy="12" r="1.5" fill="#ffcc00"/>
+    </svg>
+    <!-- OK -->
+    <span class="ok-btn" id="ok-btn">OK</span>
+  </div>
+</div>
+<div class="editor-date" id="editor-date"></div>
+  <div class="editor-body" id="editor-body">
+    <div id="display-area" tabindex="0"></div>
+    <input id="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  </div>
+<div class="editor-toolbar">
+  <!-- Checklist -->
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 11 12 14 22 4"/>
+    <line x1="4" y1="8" x2="4" y2="20"/>
+    <line x1="4" y1="14" x2="12" y2="14"/>
+  </svg>
+
+  <!-- Trombone -->
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L9.41 17.41a2 2 0 01-2.83-2.83l8.49-8.48"/>
+  </svg>
+
+  <!-- Aa -->
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4 7 4 4 20 4 20 7"/>
+    <line x1="9" y1="20" x2="15" y2="20"/>
+    <line x1="12" y1="4" x2="12" y2="20"/>
+  </svg>
+
+  <!-- Nouvelle note -->
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 013 3L13 14l-4 1 1-4 8.5-8.5z"/>
+  </svg>
+</div>
+</div>
+<div id="wiki-indicator">🔍 Wikipedia...</div>
+
+<script>
+// ============================================================
+// CONFIGURATION
+// ============================================================
+const COVER_TEXT = "Sa date de naissance";
+const COVER_TRIGGER = "  ";
+
+// Les deux notes fixes
+const FIXED_NOTES = [
+  {
+    id: 'note-wikipedia',
+    title: 'Note Vide',
+    preview: '',
+    mode: 'wikipedia'
+  },
+  {
+    id: 'note-bcgis',
+    title: 'Note Vide',
+    preview: '',
+    mode: 'bcgis'
+  }
+];
+
+const BCGIS_TEXT = "BCGIS";
+
+// ============================================================
+// STATE
+// ============================================================
+let currentNoteMode = null; // 'wikipedia' | 'bcgis'
+
+const state = {
+  phase: 'title',
+  realText: '',
+  displayLines: [],
+  currentLineIndex: 0,
+  coverWordBuffer: '',
+  coverDisplayIndex: 0,
+  dateBuffer: '',
+  dateDisplayIndex: 0,
+  freeBuffer: '',
+  spaceCount: 0,
+  coverSpacePressed: false,
+  dateWaiting: false,
+  // BCGIS spécifique
+  bcgisDone: false,
+  bcgisDisplayIndex: 0,
+};
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showListView() {
+  document.getElementById('note-editor-view').style.display = 'none';
+  document.getElementById('notes-list-view').style.display = 'flex';
+  renderNotesList();
+}
+
+function showEditorView(mode) {
+  currentNoteMode = mode;
+  document.getElementById('notes-list-view').style.display = 'none';
+  document.getElementById('note-editor-view').style.display = 'flex';
+  initEditor(mode);
+  setTimeout(() => focusHiddenInput(), 100);
+}
+
+function renderNotesList() {
+  const container = document.getElementById('notes-container');
+  container.innerHTML = '';
+
+  FIXED_NOTES.forEach((note) => {
+    const div = document.createElement('div');
+    div.className = 'note-item';
+    div.innerHTML = `<div class="note-title">${note.title}</div>
+                     <div class="note-preview">${note.preview}</div>`;
+    div.addEventListener('click', () => showEditorView(note.mode));
+    container.appendChild(div);
+  });
+}
+
+// ============================================================
+// EDITEUR - INIT
+// ============================================================
+function initEditor(mode) {
+  const now = new Date();
+  document.getElementById('editor-date').textContent = formatDateFR(now);
+
+  if (mode === 'wikipedia') {
+    Object.assign(state, {
+      phase: 'title',
+      realText: '',
+      displayLines: [''],
+      currentLineIndex: 0,
+      coverWordBuffer: '',
+      coverDisplayIndex: 0,
+      dateBuffer: '',
+      dateDisplayIndex: 0,
+      freeBuffer: '',
+      spaceCount: 0,
+      coverSpacePressed: false,
+      dateWaiting: false,
+      bcgisDone: false,
+      bcgisDisplayIndex: 0,
+    });
+  } else if (mode === 'bcgis') {
+    Object.assign(state, {
+      phase: 'bcgis-cover',
+      realText: '',
+      displayLines: [''],
+      currentLineIndex: 0,
+      bcgisDone: false,
+      bcgisDisplayIndex: 0,
+    });
+  }
+
+  renderDisplay();
+}
+
+// ============================================================
+// EDITEUR - RENDU
+// ============================================================
+function renderDisplay() {
+  const area = document.getElementById('display-area');
+  area.innerHTML = '';
+
+  state.displayLines.forEach((line, i) => {
+    const span = document.createElement('span');
+    span.className = i === 0 ? 'title-line' : 'body-line';
+
+    if (i === state.currentLineIndex) {
+      span.textContent = line;
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      span.appendChild(cursor);
+    } else {
+      span.textContent = line;
+    }
+
+    area.appendChild(span);
+  });
+}
+
+// ============================================================
+// EDITEUR - INPUT
+// ============================================================
+function focusHiddenInput() {
+  document.getElementById('hidden-input').focus();
+}
+
+document.getElementById('editor-body').addEventListener('click', focusHiddenInput);
+document.getElementById('display-area').addEventListener('click', focusHiddenInput);
+document.getElementById('hidden-input').addEventListener('keydown', handleKeyDown);
+
+async function handleKeyDown(e) {
+  e.preventDefault();
+  const key = e.key;
+
+  if (key === 'Backspace') { handleBackspace(); return; }
+  if (key === 'Enter') { handleEnter(); return; }
+  if (key.length > 1) return;
+
+  handleChar(key);
+}
+
+// ============================================================
+// GESTION DES CARACTÈRES
+// ============================================================
+async function handleChar(char) {
+
+  // ===== MODE BCGIS =====
+  if (currentNoteMode === 'bcgis') {
+
+    // Phase cover : on affiche BCGIS lettre par lettre
+    if (state.phase === 'bcgis-cover') {
+      if (state.bcgisDisplayIndex < BCGIS_TEXT.length) {
+        state.bcgisDisplayIndex++;
+        state.displayLines[state.currentLineIndex] = BCGIS_TEXT.substring(0, state.bcgisDisplayIndex);
+        renderDisplay();
+
+        // Toutes les lettres de BCGIS affichées → on passe en libre
+        if (state.bcgisDisplayIndex >= BCGIS_TEXT.length) {
+          state.phase = 'bcgis-free';
+        }
+      }
+      return;
+    }
+
+    // Phase libre : saisie normale
+    if (state.phase === 'bcgis-free') {
+      state.displayLines[state.currentLineIndex] += char;
+      renderDisplay();
+      return;
+    }
+
+    return;
+  }
+
+  // ===== MODE WIKIPEDIA =====
+
+  if (state.phase === 'title') {
+    state.displayLines[0] += char;
+    renderDisplay();
+    saveCurrentNote();
+    return;
+  }
+
+  if (state.phase === 'cover-word') {
+    if (char === ' ') {
+      state.spaceCount = (state.spaceCount || 0) + 1;
+      if (state.spaceCount >= 2 && !state.coverSpacePressed) {
+        state.coverSpacePressed = true;
+        state.spaceCount = 0;
+        fetchBirthdate(state.coverWordBuffer.trim());
+      }
+    } else {
+      state.spaceCount = 0;
+    }
+
+    if (!state.coverSpacePressed) {
+      state.coverWordBuffer += char;
+    }
+
+    if (state.coverDisplayIndex < COVER_TEXT.length) {
+      state.coverDisplayIndex++;
+      state.displayLines[state.currentLineIndex] = COVER_TEXT.substring(0, state.coverDisplayIndex);
+      renderDisplay();
+      saveCurrentNote();
+    }
+    return;
+  }
+
+  if (state.phase === 'date-typing') {
+    if (state.dateDisplayIndex < state.dateBuffer.length) {
+      state.displayLines[state.currentLineIndex] = state.dateBuffer.substring(0, state.dateDisplayIndex + 1);
+      state.dateDisplayIndex++;
+    }
+    renderDisplay();
+    saveCurrentNote();
+    return;
+  }
+
+  if (state.phase === 'free-multi') {
+    state.displayLines[state.currentLineIndex] += char;
+    renderDisplay();
+    saveCurrentNote();
+    return;
+  }
+}
+
+// ============================================================
+// GESTION ENTRÉE
+// ============================================================
+async function handleEnter() {
+
+  // ===== MODE BCGIS =====
+  if (currentNoteMode === 'bcgis') {
+    if (state.phase === 'bcgis-free' || state.phase === 'bcgis-cover') {
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      state.phase = 'bcgis-free';
+      renderDisplay();
+    }
+    return;
+  }
+
+  // ===== MODE WIKIPEDIA =====
+  if (state.currentLineIndex === 0 && state.phase === 'title') {
+    state.currentLineIndex = 1;
+    if (!state.displayLines[1]) state.displayLines.push('');
+    state.phase = 'cover-word';
+    state.coverDisplayIndex = 0;
+    state.coverWordBuffer = '';
+    state.coverSpacePressed = false;
+    renderDisplay();
+    return;
+  }
+
+  if (state.phase === 'cover-word') {
+    if (state.coverDisplayIndex < COVER_TEXT.length) return;
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    state.phase = 'date-typing';
+    state.dateDisplayIndex = 0;
+    if (!state.dateBuffer) {
+      state.dateWaiting = true;
+    }
+    renderDisplay();
+    return;
+  }
+
+  if (state.phase === 'date-typing') {
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    state.phase = 'free-multi';
+    renderDisplay();
+    return;
+  }
+
+  if (state.phase === 'free-multi') {
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    renderDisplay();
+    return;
+  }
+}
+
+// ============================================================
+// GESTION BACKSPACE
+// ============================================================
+function handleBackspace() {
+  const line = state.displayLines[state.currentLineIndex];
+
+  if (line.length > 0) {
+    state.displayLines[state.currentLineIndex] = line.slice(0, -1);
+
+    if (state.phase === 'cover-word' && state.coverDisplayIndex > 0) {
+      state.coverDisplayIndex--;
+      if (state.coverWordBuffer.length > 0) {
+        state.coverWordBuffer = state.coverWordBuffer.slice(0, -1);
+      }
+    }
+    if (state.phase === 'date-typing' && state.dateDisplayIndex > 0) {
+      state.dateDisplayIndex--;
+    }
+    if (state.phase === 'bcgis-cover' && state.bcgisDisplayIndex > 0) {
+      state.bcgisDisplayIndex--;
+      if (state.bcgisDisplayIndex < BCGIS_TEXT.length) {
+        state.phase = 'bcgis-cover';
+      }
+    }
+  } else if (state.currentLineIndex > 0) {
+    state.displayLines.splice(state.currentLineIndex, 1);
+    state.currentLineIndex--;
+    if (state.currentLineIndex === 0) state.phase = 'title';
+  }
+
+  renderDisplay();
+  if (currentNoteMode === 'wikipedia') saveCurrentNote();
+}
+
+// ============================================================
+// WIKIPEDIA
+// ============================================================
+async function fetchBirthdate(name) {
+  const indicator = document.getElementById('wiki-indicator');
+  indicator.style.display = 'none';
+
+  try {
+    const searchUrl = `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(name)}&format=json&origin=*&srlimit=1`;
+    const searchRes = await fetch(searchUrl);
+    const searchData = await searchRes.json();
+
+    if (!searchData.query.search.length) {
+      state.dateBuffer = 'Date inconnue';
+      indicator.style.display = 'none';
+      if (state.dateWaiting) { state.dateWaiting = false; autoTypeDate(); }
+      return;
+    }
+
+    const pageTitle = searchData.query.search[0].title;
+    const wikidataUrl = `https://fr.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(pageTitle)}&prop=pageprops&format=json&origin=*`;
+    const wikiRes = await fetch(wikidataUrl);
+    const wikiData = await wikiRes.json();
+    const pages = wikiData.query.pages;
+    const page = Object.values(pages)[0];
+    const wikidataId = page?.pageprops?.wikibase_item;
+
+    if (!wikidataId) {
+      state.dateBuffer = 'Date inconnue';
+      indicator.style.display = 'none';
+      if (state.dateWaiting) { state.dateWaiting = false; autoTypeDate(); }
+      return;
+    }
+
+    const wdUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${wikidataId}&props=claims&format=json&origin=*`;
+    const wdRes = await fetch(wdUrl);
+    const wdData = await wdRes.json();
+    const claims = wdData.entities[wikidataId]?.claims;
+    const birthClaim = claims?.P569?.[0]?.mainsnak?.datavalue?.value?.time;
+
+    if (birthClaim) {
+      const match = birthClaim.match(/\+(\d{4})-(\d{2})-(\d{2})/);
+      if (match) {
+        state.dateBuffer = formatBirthdate(parseInt(match[3]), parseInt(match[2]), match[1]);
+      } else {
+        state.dateBuffer = 'Date inconnue';
+      }
+    } else {
+      state.dateBuffer = 'Date inconnue';
+    }
+
+  } catch (err) {
+    state.dateBuffer = 'Date inconnue';
+  }
+
+  indicator.style.display = 'none';
+  if (state.dateWaiting) { state.dateWaiting = false; autoTypeDate(); }
+}
+
+function autoTypeDate() {
+  if (state.phase !== 'date-typing') return;
+  if (state.dateDisplayIndex >= state.dateBuffer.length) return;
+  state.displayLines[state.currentLineIndex] = state.dateBuffer.substring(0, state.dateDisplayIndex + 1);
+  state.dateDisplayIndex++;
+  renderDisplay();
+  saveCurrentNote();
+  setTimeout(autoTypeDate, 80);
+}
+
+// ============================================================
+// UTILITAIRES
+// ============================================================
+const MOIS = ['janvier','février','mars','avril','mai','juin',
+               'juillet','août','septembre','octobre','novembre','décembre'];
+
+function formatBirthdate(day, month, year) {
+ const d = String(day).padStart(2, '0');
+ return `${d} ${MOIS[month - 1]} ${year}`;
+}
+
+function formatDateFR(date) {
+  const jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const j = jours[date.getDay()];
+  const d = date.getDate();
+  const m = MOIS[date.getMonth()];
+  const y = date.getFullYear();
+  const h = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  return `${j} ${d} ${m} ${y} à ${h}:${min}`;
+}
+
+function saveNotes() {
+  localStorage.setItem('notes', JSON.stringify([]));
+}
+
+function saveCurrentNote() {
+  // Pas de persistance pour les notes fixes
+}
+
+// ============================================================
+// ÉVÉNEMENTS GLOBAUX
+// ============================================================
+document.getElementById('new-note-btn').addEventListener('click', () => {});
+
+document.getElementById('back-btn').addEventListener('click', () => {
+  showListView();
+});
+
+// ============================================================
+// INIT
+// ============================================================
+showListView();
+</script>
+</body>
+</html>
+
