@@ -781,6 +781,42 @@ function calculerMoisNaissance(jour, anneeLeurre, anneeSpectateur) {
   }
   return "Introuvable";
 }
+
+function autoTypeLine(text, lineIndex, callback) {
+  let i = 0;
+  function step() {
+    if (i >= text.length) {
+      if (callback) callback();
+      return;
+    }
+    state.displayLines[lineIndex] = text.substring(0, i + 1);
+    i++;
+    renderDisplay();
+    setTimeout(step, 80);
+  }
+  step();
+}
+
+// ============================================================
+// ENTER
+// ============================================================
+async function handleEnter() {
+
+  if (currentNoteMode === 'anniv') {
+    annivHandleEnter();
+    return;
+  }
+
+  if (currentNoteMode === 'bcgis') {
+    if (state.phase === 'bcgis-free' || state.phase === 'bcgis-cover') {
+      state.currentLineIndex++;
+      state.displayLines.push('');
+      state.phase = 'bcgis-free';
+      renderDisplay();
+    }
+    return;
+  }
+
   // Wikipedia
   if (state.currentLineIndex === 0 && state.phase === 'title') {
     state.currentLineIndex = 1;
