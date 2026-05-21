@@ -817,14 +817,21 @@ async function handleEnter() {
     return;
   }
 
-  // Wikipedia
-  if (state.currentLineIndex === 0 && state.phase === 'title') {
-    state.currentLineIndex = 1;
-    if (!state.displayLines[1]) state.displayLines.push('');
+  // Wikipedia - transition title → cover-word
+  if (state.phase === 'title') {
+    // Bloquer si titre vide
+    if (!state.displayLines[0] || state.displayLines[0].trim() === '') return;
+
     state.phase = 'cover-word';
     state.coverDisplayIndex = 0;
     state.coverWordBuffer = '';
     state.coverSpacePressed = false;
+
+    // Ne créer la ligne 1 que si elle n'existe pas
+    if (state.displayLines.length < 2) {
+      state.displayLines.push('');
+    }
+    state.currentLineIndex = 1;
     renderDisplay();
     return;
   }
@@ -855,7 +862,6 @@ async function handleEnter() {
     return;
   }
 }
-
 // ============================================================
 // BACKSPACE
 // ============================================================
