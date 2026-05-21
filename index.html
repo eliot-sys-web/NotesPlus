@@ -160,23 +160,22 @@
   }
 
   .editor-actions svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: #ffcc00;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  cursor: pointer;
-}
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: #ffcc00;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    cursor: pointer;
+  }
 
-.ok-btn {
-  color: #ffcc00;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
+  .ok-btn {
+    color: #ffcc00;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
   .editor-date {
     text-align: center;
@@ -245,29 +244,26 @@
   }
 
   .editor-toolbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 12px 0;
-  padding-bottom: 28px;
-  background: #1c1c1e;
-  border-top: 1px solid #3a3a3c;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: -apple-system, sans-serif;
-}
-
-
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    padding-bottom: 28px;
+    background: #1c1c1e;
+    border-top: 1px solid #3a3a3c;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: -apple-system, sans-serif;
+  }
 
   .editor-toolbar svg {
-  fill: none;
-  stroke: #ffcc00;
-  stroke-width: 2;
-}
-
+    fill: none;
+    stroke: #ffcc00;
+    stroke-width: 2;
+  }
 
   #wiki-indicator {
     display: none;
@@ -287,10 +283,8 @@
 <body>
 
 <!-- VUE LISTE -->
-<!-- VUE LISTE -->
 <div id="notes-list-view">
 
-  <!-- Top nav -->
   <div style="display:flex; justify-content:space-between; align-items:center; padding:54px 20px 0;">
     <span style="color:#ffcc00; font-size:17px; cursor:pointer;">‹ Dossiers</span>
     <div style="width:30px; height:30px; border:1.5px solid #ffcc00; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;">
@@ -298,28 +292,25 @@
     </div>
   </div>
 
-  <!-- Titre -->
   <div style="padding:8px 20px 12px;">
     <h1 style="font-size:34px; font-weight:700; color:#fff; letter-spacing:0.3px;">iCloud (toutes)</h1>
   </div>
 
-  <!-- Barre de recherche -->
   <div style="margin:0 16px 20px; background:#1c1c1e; border-radius:12px; padding:9px 14px; display:flex; align-items:center; gap:8px;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
     <span style="color:#8e8e93; font-size:16px; flex:1;">Recherche</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 013 3v6a3 3 0 01-6 0V4a3 3 0 013-3z"/><path d="M19 10a7 7 0 01-14 0"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
   </div>
 
-  <!-- Section Aujourd'hui -->
   <div style="flex:1; overflow-y:auto; padding:0 16px 100px;">
     <h2 style="color:#fff; font-size:22px; font-weight:700; margin:0 0 10px 4px;">Aujourd'hui</h2>
 
     <div style="background:#1c1c1e; border-radius:12px; overflow:hidden;">
 
       <!-- Note 1 : Wikipedia -->
-      <div id="note-item-1" onclick="showEditorView('wikipedia')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c; active:opacity:0.6;">
-        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
-        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-1"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+      <div id="note-item-1" onclick="showEditorView('wikipedia')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-1"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
         <div style="display:flex; align-items:center; gap:5px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span style="font-size:13px; color:#8e8e93;">Notes</span>
@@ -327,9 +318,19 @@
       </div>
 
       <!-- Note 2 : BCGIS -->
-      <div id="note-item-2" onclick="showEditorView('bcgis')" style="padding:13px 16px; cursor:pointer;">
-        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Note Vide</div>
-        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><span id="time-2"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+      <div id="note-item-2" onclick="showEditorView('bcgis')" style="padding:13px 16px; cursor:pointer; border-bottom:0.5px solid #3a3a3c;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-2"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span style="font-size:13px; color:#8e8e93;">Notes</span>
+        </div>
+      </div>
+
+      <!-- Note 3 : Astro -->
+      <div id="note-item-3" onclick="showEditorView('astro')" style="padding:13px 16px; cursor:pointer;">
+        <div style="font-size:16px; font-weight:600; color:#fff; margin-bottom:3px;">Note Vide</div>
+        <div style="font-size:14px; color:#8e8e93; margin-bottom:5px;"><span id="time-3"></span>&nbsp;&nbsp;Aucun texte supplémentaire</div>
         <div style="display:flex; align-items:center; gap:5px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span style="font-size:13px; color:#8e8e93;">Notes</span>
@@ -339,9 +340,8 @@
     </div>
   </div>
 
-  <!-- Bottom bar -->
   <div class="bottom-bar">
-    <span id="bottom-count">2 notes</span>
+    <span id="bottom-count">3 notes</span>
     <div class="new-note-btn" id="new-note-btn">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M20.707 5.826l-2.534-2.533a1 1 0 00-1.414 0L3.25 17.337a1 1 0 00-.274.51L2 23l5.154-.976a1 1 0 00.51-.274L21.18 8.24a1 1 0 000-1.414zM18.88 4.707l.413.413-1.586 1.586-.413-.413 1.586-1.586zM4.967 18.23l9.657-9.657 1.8 1.8-9.655 9.658-2.56.485.758-2.286z"/>
@@ -353,68 +353,57 @@
 <!-- VUE EDITEUR -->
 <div id="note-editor-view">
   <div class="editor-header">
-  <div class="back-btn" id="back-btn">
-    <svg viewBox="0 0 11 18"><polyline points="10,1 1,9 10,17"/></svg>
-    Retour
+    <div class="back-btn" id="back-btn">
+      <svg viewBox="0 0 11 18"><polyline points="10,1 1,9 10,17"/></svg>
+      Retour
+    </div>
+    <div class="editor-actions">
+      <svg viewBox="0 0 24 24" title="Annuler">
+        <path d="M9 14L4 9l5-5"/>
+        <path d="M4 9h10.5a4.5 4.5 0 010 9H11" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg viewBox="0 0 24 24" title="Rétablir">
+        <path d="M15 14l5-5-5-5"/>
+        <path d="M20 9H9.5a4.5 4.5 0 000 9H13" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg viewBox="0 0 24 24" title="Partager">
+        <path d="M12 2v13M7 7l5-5 5 5" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 14v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg viewBox="0 0 24 24" title="Plus">
+        <circle cx="5" cy="12" r="1.5" fill="#ffcc00"/>
+        <circle cx="12" cy="12" r="1.5" fill="#ffcc00"/>
+        <circle cx="19" cy="12" r="1.5" fill="#ffcc00"/>
+      </svg>
+      <span class="ok-btn" id="ok-btn">OK</span>
+    </div>
   </div>
-  <div class="editor-actions">
-    <!-- Annuler -->
-    <svg viewBox="0 0 24 24" title="Annuler">
-      <path d="M9 14L4 9l5-5"/>
-      <path d="M4 9h10.5a4.5 4.5 0 010 9H11" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <!-- Rétablir -->
-    <svg viewBox="0 0 24 24" title="Rétablir">
-      <path d="M15 14l5-5-5-5"/>
-      <path d="M20 9H9.5a4.5 4.5 0 000 9H13" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <!-- Partager -->
-    <svg viewBox="0 0 24 24" title="Partager">
-      <path d="M12 2v13M7 7l5-5 5 5" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M20 14v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <!-- Plus d'options -->
-    <svg viewBox="0 0 24 24" title="Plus">
-      <circle cx="5" cy="12" r="1.5" fill="#ffcc00"/>
-      <circle cx="12" cy="12" r="1.5" fill="#ffcc00"/>
-      <circle cx="19" cy="12" r="1.5" fill="#ffcc00"/>
-    </svg>
-    <!-- OK -->
-    <span class="ok-btn" id="ok-btn">OK</span>
-  </div>
-</div>
-<div class="editor-date" id="editor-date"></div>
+  <div class="editor-date" id="editor-date"></div>
   <div class="editor-body" id="editor-body">
     <div id="display-area" tabindex="0"></div>
     <input id="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
-<div class="editor-toolbar">
-  <!-- Checklist -->
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="9 11 12 14 22 4"/>
-    <line x1="4" y1="8" x2="4" y2="20"/>
-    <line x1="4" y1="14" x2="12" y2="14"/>
-  </svg>
-
-  <!-- Trombone -->
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L9.41 17.41a2 2 0 01-2.83-2.83l8.49-8.48"/>
-  </svg>
-
-  <!-- Aa -->
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="4 7 4 4 20 4 20 7"/>
-    <line x1="9" y1="20" x2="15" y2="20"/>
-    <line x1="12" y1="4" x2="12" y2="20"/>
-  </svg>
-
-  <!-- Nouvelle note -->
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-    <path d="M18.5 2.5a2.121 2.121 0 013 3L13 14l-4 1 1-4 8.5-8.5z"/>
-  </svg>
+  <div class="editor-toolbar">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 11 12 14 22 4"/>
+      <line x1="4" y1="8" x2="4" y2="20"/>
+      <line x1="4" y1="14" x2="12" y2="14"/>
+    </svg>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L9.41 17.41a2 2 0 01-2.83-2.83l8.49-8.48"/>
+    </svg>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4 7 4 4 20 4 20 7"/>
+      <line x1="9" y1="20" x2="15" y2="20"/>
+      <line x1="12" y1="4" x2="12" y2="20"/>
+    </svg>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+      <path d="M18.5 2.5a2.121 2.121 0 013 3L13 14l-4 1 1-4 8.5-8.5z"/>
+    </svg>
+  </div>
 </div>
-</div>
+
 <div id="wiki-indicator">🔍 Wikipedia...</div>
 
 <script>
@@ -423,29 +412,60 @@
 // ============================================================
 const COVER_TEXT = "Sa date de naissance";
 const COVER_TRIGGER = "  ";
-
-// Les deux notes fixes
-const FIXED_NOTES = [
-  {
-    id: 'note-wikipedia',
-    title: 'Note Vide',
-    preview: '',
-    mode: 'wikipedia'
-  },
-  {
-    id: 'note-bcgis',
-    title: 'Note Vide',
-    preview: '',
-    mode: 'bcgis'
-  }
-];
-
 const BCGIS_TEXT = "BCGIS";
+
+// Mapping signe astrologique : numéro → { nom, mois1, jourLimite, mois2 }
+// Si jour <= jourLimite → mois1, sinon → mois2
+// jourLimite = dernier jour du premier mois du signe
+const SIGNES = {
+  1:  { nom: 'Bélier',      mois1: 'mars',      limite: 31, mois2: 'avril'     }, // 21 mars – 19 avril
+  2:  { nom: 'Taureau',     mois1: 'avril',     limite: 30, mois2: 'mai'       }, // 20 avril – 20 mai
+  3:  { nom: 'Gémeaux',     mois1: 'mai',       limite: 31, mois2: 'juin'      }, // 21 mai – 20 juin
+  4:  { nom: 'Cancer',      mois1: 'juin',      limite: 30, mois2: 'juillet'   }, // 21 juin – 22 juillet
+  5:  { nom: 'Lion',        mois1: 'juillet',   limite: 31, mois2: 'août'      }, // 23 juillet – 22 août
+  6:  { nom: 'Vierge',      mois1: 'août',      limite: 31, mois2: 'septembre' }, // 23 août – 22 sept
+  7:  { nom: 'Scorpion',    mois1: 'octobre',   limite: 31, mois2: 'novembre'  }, // 23 oct – 21 nov
+  8:  { nom: 'Sagittaire',  mois1: 'novembre',  limite: 30, mois2: 'décembre'  }, // 22 nov – 21 déc
+  9:  { nom: 'Capricorne',  mois1: 'décembre',  limite: 31, mois2: 'janvier'   }, // 22 déc – 19 janv
+  10: { nom: 'Verseau',     mois1: 'janvier',   limite: 31, mois2: 'février'   }, // 20 janv – 18 fév
+  11: { nom: 'Poissons',    mois1: 'février',   limite: 29, mois2: 'mars'      }, // 19 fév – 20 mars
+  12: { nom: 'Balance',     mois1: 'septembre', limite: 30, mois2: 'octobre'   }, // 23 sept – 22 oct
+};
+
+// Seuil : premier jour du deuxième mois du signe (si jour >= seuil → mois2)
+const SEUILS = {
+  1:  20, // Bélier : à partir du 20 avril → avril
+  2:  21, // Taureau : à partir du 21 mai → mai
+  3:  21, // Gémeaux : à partir du 21 juin → juin
+  4:  23, // Cancer : à partir du 23 juillet → juillet
+  5:  23, // Lion : à partir du 23 août → août
+  6:  23, // Vierge : à partir du 23 sept → sept
+  7:  23, // Scorpion : à partir du 23 oct → oct (déjà mois1)
+  8:  22, // Sagittaire : à partir du 22 nov → nov (déjà mois1)
+  9:  22, // Capricorne : à partir du 22 déc → déc (déjà mois1)
+  10: 20, // Verseau : à partir du 20 janv → janv (déjà mois1)
+  11: 19, // Poissons : à partir du 19 fév → fév (déjà mois1)
+  12: 23, // Balance : à partir du 23 sept → sept (déjà mois1)
+};
+
+// Retourne le nom du mois à partir du numéro de signe et du jour
+function getMoisFromSigne(numSigne, jour) {
+  const s = SIGNES[numSigne];
+  if (!s) return null;
+  const seuil = SEUILS[numSigne];
+  // Si jour >= seuil → on est encore dans mois1 (début du signe)
+  // Si jour < seuil → on est dans mois2 (fin du signe)
+  if (jour >= seuil) {
+    return s.mois1;
+  } else {
+    return s.mois2;
+  }
+}
 
 // ============================================================
 // STATE
 // ============================================================
-let currentNoteMode = null; // 'wikipedia' | 'bcgis'
+let currentNoteMode = null; // 'wikipedia' | 'bcgis' | 'astro'
 
 const state = {
   phase: 'title',
@@ -460,9 +480,16 @@ const state = {
   spaceCount: 0,
   coverSpacePressed: false,
   dateWaiting: false,
-  // BCGIS spécifique
   bcgisDone: false,
   bcgisDisplayIndex: 0,
+  // Astro
+  astroSigneBuffer: '',    // chiffres tapés pour le signe (ex: "7" ou "12")
+  astroJourBuffer: '',     // chiffres tapés pour le jour
+  astroSigneValidé: false, // true quand espace après signe reçu
+  astroJourValidé: false,  // true quand espace après jour reçu
+  astroMoisBuffer: '',     // nom du mois calculé, à typer lettre par lettre
+  astroMoisIndex: 0,       // index d'affichage du mois
+  astroMoisTyping: false,  // en train de taper le mois automatiquement
 };
 
 // ============================================================
@@ -471,7 +498,6 @@ const state = {
 function showListView() {
   document.getElementById('note-editor-view').style.display = 'none';
   document.getElementById('notes-list-view').style.display = 'flex';
-  renderNotesList();
 }
 
 function showEditorView(mode) {
@@ -480,20 +506,6 @@ function showEditorView(mode) {
   document.getElementById('note-editor-view').style.display = 'flex';
   initEditor(mode);
   setTimeout(() => focusHiddenInput(), 100);
-}
-
-function renderNotesList() {
-  const container = document.getElementById('notes-container');
-  container.innerHTML = '';
-
-  FIXED_NOTES.forEach((note) => {
-    const div = document.createElement('div');
-    div.className = 'note-item';
-    div.innerHTML = `<div class="note-title">${note.title}</div>
-                     <div class="note-preview">${note.preview}</div>`;
-    div.addEventListener('click', () => showEditorView(note.mode));
-    container.appendChild(div);
-  });
 }
 
 // ============================================================
@@ -528,6 +540,20 @@ function initEditor(mode) {
       currentLineIndex: 0,
       bcgisDone: false,
       bcgisDisplayIndex: 0,
+    });
+  } else if (mode === 'astro') {
+    Object.assign(state, {
+      phase: 'astro-line1',  // ligne 1 : signe + jour
+      realText: '',
+      displayLines: [''],
+      currentLineIndex: 0,
+      astroSigneBuffer: '',
+      astroJourBuffer: '',
+      astroSigneValidé: false,
+      astroJourValidé: false,
+      astroMoisBuffer: '',
+      astroMoisIndex: 0,
+      astroMoisTyping: false,
     });
   }
 
@@ -572,11 +598,9 @@ document.getElementById('hidden-input').addEventListener('keydown', handleKeyDow
 async function handleKeyDown(e) {
   e.preventDefault();
   const key = e.key;
-
   if (key === 'Backspace') { handleBackspace(); return; }
   if (key === 'Enter') { handleEnter(); return; }
   if (key.length > 1) return;
-
   handleChar(key);
 }
 
@@ -587,34 +611,32 @@ async function handleChar(char) {
 
   // ===== MODE BCGIS =====
   if (currentNoteMode === 'bcgis') {
-
-    // Phase cover : on affiche BCGIS lettre par lettre
     if (state.phase === 'bcgis-cover') {
       if (state.bcgisDisplayIndex < BCGIS_TEXT.length) {
         state.bcgisDisplayIndex++;
         state.displayLines[state.currentLineIndex] = BCGIS_TEXT.substring(0, state.bcgisDisplayIndex);
         renderDisplay();
-
-        // Toutes les lettres de BCGIS affichées → on passe en libre
         if (state.bcgisDisplayIndex >= BCGIS_TEXT.length) {
           state.phase = 'bcgis-free';
         }
       }
       return;
     }
-
-    // Phase libre : saisie normale
     if (state.phase === 'bcgis-free') {
       state.displayLines[state.currentLineIndex] += char;
       renderDisplay();
       return;
     }
+    return;
+  }
 
+  // ===== MODE ASTRO =====
+  if (currentNoteMode === 'astro') {
+    handleCharAstro(char);
     return;
   }
 
   // ===== MODE WIKIPEDIA =====
-
   if (state.phase === 'title') {
     state.displayLines[0] += char;
     renderDisplay();
@@ -633,11 +655,9 @@ async function handleChar(char) {
     } else {
       state.spaceCount = 0;
     }
-
     if (!state.coverSpacePressed) {
       state.coverWordBuffer += char;
     }
-
     if (state.coverDisplayIndex < COVER_TEXT.length) {
       state.coverDisplayIndex++;
       state.displayLines[state.currentLineIndex] = COVER_TEXT.substring(0, state.coverDisplayIndex);
@@ -666,6 +686,168 @@ async function handleChar(char) {
 }
 
 // ============================================================
+// MODE ASTRO - LOGIQUE PRINCIPALE
+// ============================================================
+function handleCharAstro(char) {
+
+  // --- Phase astro-line1 : saisie du signe et du jour ---
+  if (state.phase === 'astro-line1') {
+
+    // Tant que le signe n'est pas validé
+    if (!state.astroSigneValidé) {
+      if (char === ' ') {
+        // L'espace valide le signe, on affiche l'espace réellement
+        if (state.astroSigneBuffer.length > 0) {
+          state.astroSigneValidé = true;
+          state.displayLines[state.currentLineIndex] += ' ';
+          renderDisplay();
+        }
+      } else {
+        // On accepte uniquement les chiffres (1 ou 2 chiffres max)
+        if (/\d/.test(char) && state.astroSigneBuffer.length < 2) {
+          state.astroSigneBuffer += char;
+          state.displayLines[state.currentLineIndex] += char;
+          renderDisplay();
+        }
+      }
+      return;
+    }
+
+    // Signe validé, on saisit le jour
+    if (!state.astroJourValidé) {
+      if (char === ' ') {
+        // L'espace valide le jour → on déclenche le cover typing du mois
+        if (state.astroJourBuffer.length > 0) {
+          state.astroJourValidé = true;
+          const numSigne = parseInt(state.astroSigneBuffer);
+          const jour = parseInt(state.astroJourBuffer);
+          const mois = getMoisFromSigne(numSigne, jour);
+          if (mois) {
+            state.astroMoisBuffer = mois;
+          } else {
+            state.astroMoisBuffer = 'inconnu';
+          }
+          state.astroMoisIndex = 0;
+          state.astroMoisTyping = true;
+          // On démarre le typing automatique du mois
+          autoTypeMois();
+        }
+      } else {
+        // On accepte uniquement les chiffres (1 ou 2 chiffres max pour le jour)
+        if (/\d/.test(char) && state.astroJourBuffer.length < 2) {
+          state.astroJourBuffer += char;
+          state.displayLines[state.currentLineIndex] += char;
+          renderDisplay();
+        }
+      }
+      return;
+    }
+
+    // Mois en cours de typing automatique → chaque touche = lettre suivante du mois
+    if (state.astroMoisTyping) {
+      if (state.astroMoisIndex < state.astroMoisBuffer.length) {
+        const baseText = state.astroSigneBuffer + ' ' + state.astroJourBuffer + ' ';
+        state.astroMoisIndex++;
+        state.displayLines[state.currentLineIndex] = baseText + state.astroMoisBuffer.substring(0, state.astroMoisIndex);
+        renderDisplay();
+        if (state.astroMoisIndex >= state.astroMoisBuffer.length) {
+          state.astroMoisTyping = false;
+          // Passe en astro-free pour la suite de la ligne
+          state.phase = 'astro-free-line1';
+        }
+      }
+      return;
+    }
+
+    return;
+  }
+
+  // --- Phase astro-free-line1 : suite libre sur la ligne 1 ---
+  if (state.phase === 'astro-free-line1') {
+    state.displayLines[state.currentLineIndex] += char;
+    renderDisplay();
+    return;
+  }
+
+  // --- Phase astro-line2 : saisie de l'année + cover typing du mois ---
+  if (state.phase === 'astro-line2') {
+    handleCharAstroLine2(char);
+    return;
+  }
+
+  // --- Phase astro-free : saisie libre après ligne 2 ---
+  if (state.phase === 'astro-free') {
+    state.displayLines[state.currentLineIndex] += char;
+    renderDisplay();
+    return;
+  }
+}
+
+// ============================================================
+// MODE ASTRO - LIGNE 2 (année + mois)
+// ============================================================
+function handleCharAstroLine2(char) {
+
+  // L'année n'est pas encore validée
+  if (!state.astroAnnéeValidée) {
+    if (char === ' ') {
+      if (state.astroAnnéeBuffer && state.astroAnnéeBuffer.length > 0) {
+        state.astroAnnéeValidée = true;
+        state.displayLines[state.currentLineIndex] += ' ';
+        // Démarre le cover typing du mois (même mois que ligne 1)
+        state.astroMois2Index = 0;
+        state.astroMois2Typing = true;
+        autoTypeMoisLigne2();
+        renderDisplay();
+      }
+    } else {
+      if (/\d/.test(char) && (state.astroAnnéeBuffer || '').length < 4) {
+        state.astroAnnéeBuffer = (state.astroAnnéeBuffer || '') + char;
+        state.displayLines[state.currentLineIndex] += char;
+        renderDisplay();
+      }
+    }
+    return;
+  }
+
+  // Année validée, mois en cours de typing automatique
+  if (state.astroMois2Typing) {
+    if (state.astroMois2Index < state.astroMoisBuffer.length) {
+      const baseText = state.astroAnnéeBuffer + ' ';
+      state.astroMois2Index++;
+      state.displayLines[state.currentLineIndex] = baseText + state.astroMoisBuffer.substring(0, state.astroMois2Index);
+      renderDisplay();
+      if (state.astroMois2Index >= state.astroMoisBuffer.length) {
+        state.astroMois2Typing = false;
+        state.phase = 'astro-free';
+      }
+    }
+    return;
+  }
+
+  // Libre après le mois
+  if (state.phase === 'astro-free') {
+    state.displayLines[state.currentLineIndex] += char;
+    renderDisplay();
+  }
+}
+
+// ============================================================
+// AUTO-TYPING DU MOIS (ligne 1)
+// ============================================================
+function autoTypeMois() {
+  // Pas d'auto-typing ici : chaque touche = une lettre du mois
+  // (géré dans handleCharAstro)
+}
+
+// ============================================================
+// AUTO-TYPING DU MOIS (ligne 2)
+// ============================================================
+function autoTypeMoisLigne2() {
+  // Pareil : chaque touche = une lettre (géré dans handleCharAstroLine2)
+}
+
+// ============================================================
 // GESTION ENTRÉE
 // ============================================================
 async function handleEnter() {
@@ -678,6 +860,12 @@ async function handleEnter() {
       state.phase = 'bcgis-free';
       renderDisplay();
     }
+    return;
+  }
+
+  // ===== MODE ASTRO =====
+  if (currentNoteMode === 'astro') {
+    handleEnterAstro();
     return;
   }
 
@@ -699,9 +887,7 @@ async function handleEnter() {
     state.displayLines.push('');
     state.phase = 'date-typing';
     state.dateDisplayIndex = 0;
-    if (!state.dateBuffer) {
-      state.dateWaiting = true;
-    }
+    if (!state.dateBuffer) { state.dateWaiting = true; }
     renderDisplay();
     return;
   }
@@ -717,6 +903,35 @@ async function handleEnter() {
   if (state.phase === 'free-multi') {
     state.currentLineIndex++;
     state.displayLines.push('');
+    renderDisplay();
+    return;
+  }
+}
+
+// ============================================================
+// MODE ASTRO - GESTION ENTRÉE
+// ============================================================
+function handleEnterAstro() {
+
+  // Entrée sur la ligne 1 → passe à la ligne 2
+  if (state.phase === 'astro-line1' || state.phase === 'astro-free-line1') {
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    // Réinitialise les variables de ligne 2
+    state.astroAnnéeBuffer = '';
+    state.astroAnnéeValidée = false;
+    state.astroMois2Index = 0;
+    state.astroMois2Typing = false;
+    state.phase = 'astro-line2';
+    renderDisplay();
+    return;
+  }
+
+  // Entrée sur la ligne 2 ou en mode libre → nouvelle ligne libre
+  if (state.phase === 'astro-line2' || state.phase === 'astro-free') {
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    state.phase = 'astro-free';
     renderDisplay();
     return;
   }
@@ -832,8 +1047,8 @@ const MOIS = ['janvier','février','mars','avril','mai','juin',
                'juillet','août','septembre','octobre','novembre','décembre'];
 
 function formatBirthdate(day, month, year) {
- const d = String(day).padStart(2, '0');
- return `${d} ${MOIS[month - 1]} ${year}`;
+  const d = String(day).padStart(2, '0');
+  return `${d} ${MOIS[month - 1]} ${year}`;
 }
 
 function formatDateFR(date) {
@@ -851,9 +1066,7 @@ function saveNotes() {
   localStorage.setItem('notes', JSON.stringify([]));
 }
 
-function saveCurrentNote() {
-  // Pas de persistance pour les notes fixes
-}
+function saveCurrentNote() {}
 
 // ============================================================
 // ÉVÉNEMENTS GLOBAUX
@@ -871,4 +1084,3 @@ showListView();
 </script>
 </body>
 </html>
-
