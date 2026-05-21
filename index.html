@@ -543,10 +543,11 @@ function initEditor(mode) {
     });
   } else if (mode === 'astro') {
     Object.assign(state, {
-      phase: 'astro-line1',  // ligne 1 : signe + jour
+      phase: 'astro-line1',
       realText: '',
       displayLines: [''],
       currentLineIndex: 0,
+      // Ligne 1
       astroSigneBuffer: '',
       astroJourBuffer: '',
       astroSigneValidé: false,
@@ -554,8 +555,14 @@ function initEditor(mode) {
       astroMoisBuffer: '',
       astroMoisIndex: 0,
       astroMoisTyping: false,
+      // Ligne 2
+      astroAnnéeBuffer: '',
+      astroAnnéeValidée: false,
+      astroMois2Index: 0,
+      astroMois2Typing: false,
     });
   }
+
 
   renderDisplay();
 }
@@ -785,24 +792,20 @@ function handleCharAstro(char) {
 
 // ============================================================
 // MODE ASTRO - LIGNE 2 (année + mois)
-// ============================================================
-function handleCharAstroLine2(char) {
+/function handleCharAstroLine2(char) {
 
-  // L'année n'est pas encore validée
   if (!state.astroAnnéeValidée) {
     if (char === ' ') {
       if (state.astroAnnéeBuffer && state.astroAnnéeBuffer.length > 0) {
         state.astroAnnéeValidée = true;
         state.displayLines[state.currentLineIndex] += ' ';
-        // Démarre le cover typing du mois (même mois que ligne 1)
         state.astroMois2Index = 0;
         state.astroMois2Typing = true;
-        autoTypeMoisLigne2();
         renderDisplay();
       }
     } else {
-      if (/\d/.test(char) && (state.astroAnnéeBuffer || '').length < 4) {
-        state.astroAnnéeBuffer = (state.astroAnnéeBuffer || '') + char;
+      if (/\d/.test(char) && state.astroAnnéeBuffer.length < 4) {
+        state.astroAnnéeBuffer += char;
         state.displayLines[state.currentLineIndex] += char;
         renderDisplay();
       }
@@ -810,7 +813,6 @@ function handleCharAstroLine2(char) {
     return;
   }
 
-  // Année validée, mois en cours de typing automatique
   if (state.astroMois2Typing) {
     if (state.astroMois2Index < state.astroMoisBuffer.length) {
       const baseText = state.astroAnnéeBuffer + ' ';
@@ -825,12 +827,13 @@ function handleCharAstroLine2(char) {
     return;
   }
 
-  // Libre après le mois
-  if (state.phase === 'astro-free') {
+  // ✅ Corrigé : plus de vérification state.phase ici
+  if (state.astroAnnéeValidée && !state.astroMois2Typing) {
     state.displayLines[state.currentLineIndex] += char;
     renderDisplay();
   }
 }
+
 
 // ============================================================
 // AUTO-TYPING DU MOIS (ligne 1)
