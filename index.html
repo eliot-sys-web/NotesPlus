@@ -671,31 +671,47 @@ async function handleChar(char) {
 function annivHandleChar(char) {
   const step = state.annivStep;
 
-  // Steps 0-3 : on attend des chiffres, validés par Entrée
-  // On affiche le cover "Son mois de naissance" lettre à lettre pendant la saisie
-  if (step <= 3) {
-    if (/\d/.test(char)) {
+  if (step === 0) {
+    // Ligne 1 : signe + espaces + jour, tout s'affiche
+    if (/[\d ]/.test(char)) {
       state.annivInputBuffer += char;
-
-      // Avancer le cover lettre par lettre si pas encore fini
-      if (step === 0 && !state.annivCoverDone) {
-        if (state.annivCoverIndex < state.annivCoverText.length) {
-          state.annivCoverIndex++;
-          state.displayLines[0] = state.annivCoverText.substring(0, state.annivCoverIndex);
-          if (state.annivCoverIndex >= state.annivCoverText.length) {
-            state.annivCoverDone = true;
-          }
-        }
-      }
-      // Steps 1-3 : afficher le chiffre sur la ligne courante (invisible car on écrit la valeur réelle)
-      // On n'affiche rien de visible pour les valeurs intermédiaires
+      state.displayLines[state.currentLineIndex] += char;
       renderDisplay();
     }
     return;
   }
 
-  // Step 4 : saisie libre après résultat
+  if (step === 1) {
+    // Ligne 2 : année leurre + espaces + année réelle, tout s'affiche
+    if (/[\d ]/.test(char)) {
+      state.annivInputBuffer += char;
+      state.displayLines[state.currentLineIndex] += char;
+      renderDisplay();
+    }
+    return;
+  }
+
+  if (step === 2) {
+    // Premier caractère tapé → déclenche l'affichage du mois
+    state.annivStep = 3;
+    state.currentLineIndex++;
+    state.displayLines.push('');
+    renderDisplay();
+
+    const moisResult = calculerMoisNaissance(
+      state.annivJour,
+      state.annivAnneeLeurre,
+      state.annivAnneeSpectateur
+    );
+
+    autoTypeLine(moisResult, state.currentLineIndex, () => {
+      state.annivStep = 4;
+    });
+    return;
+  }
+
   if (step === 4) {
+    // Saisie libre
     state.displayLines[state.currentLineIndex] += char;
     renderDisplay();
   }
@@ -706,142 +722,65 @@ function annivHandleEnter() {
   const buf = state.annivInputBuffer.trim();
 
   if (step === 0) {
-    // Valider le signe
-    const n = parseInt(buf);
-    if (!isNaN(n) && n >= 1 && n <= 12) {
-      state.annivSigne = n;
-      state.annivStep = 1;
-      state.annivInputBuffer = '';
-      // Nouvelle ligne pour attendre le jour
-      state.currentLineIndex++;
-      state.displayLines.push('');
-      renderDisplay();
+    // Parser "7   24" → signe et jour
+    const parts = buf.split(/\s+/);
+    if (parts.length >= 2) {
+      const signe = parseInt(parts[0]);
+      const jour = parseInt(parts[parts.length - 1]);
+      if (!isNaN(signe) && signe >= 1 && signe <= 12 && !isNaN(jour) && jour >= 1 && jour <= 31) {
+        state.annivSigne = signe;
+        state.annivJour = jour;
+        state.annivStep = 1;
+        state.annivInputBuffer = '';
+        state.currentLineIndex++;
+        state.displayLines.push('');
+        renderDisplay();
+      }
     }
     return;
   }
 
   if (step === 1) {
-    // Valider le jour
-    const n = parseInt(buf);
-    if (!isNaN(n) && n >= 1 && n <= 31) {
-      state.annivJour = n;
-      state.annivStep = 2;
-      state.annivInputBuffer = '';
-      state.currentLineIndex++;
-      state.displayLines.push('');
-      renderDisplay();
-    }
-    return;
-  }
-
-  if (step === 2) {
-    // Valider année leurre
-    const n = parseInt(buf);
-    if (!isNaN(n) && n > 1000) {
-      state.annivAnneeLeurre = n;
-      state.annivStep = 3;
-      state.annivInputBuffer = '';
-      state.currentLineIndex++;
-      state.displayLines.push('');
-      renderDisplay();
-    }
-    return;
-  }
-
-  if (step === 3) {
-    // Valider année spectateur → calcul et affichage
-    const n = parseInt(buf);
-    if (!isNaN(n) && n > 1000) {
-      state.annivAnneeSpectateur = n;
-      state.annivStep = 4;
-      state.annivInputBuffer = '';
-
-      const moisResult = calculerMoisNaissance(
-        state.annivSigne,
-        state.annivJour,
-        state.annivAnneeLeurre,
-        state.annivAnneeSpectateur
-      );
-
-      // Afficher le résultat sur une nouvelle ligne, lettre par lettre
-      state.currentLineIndex++;
-      state.displayLines.push('');
-      renderDisplay();
-      autoTypeLine(moisResult, state.currentLineIndex, () => {
-        // Après affichage, prêt pour saisie libre
-      });
+    // Parser "1985   1975" → année leurre et année réelle
+    const parts = buf.split(/\s+/);
+    if (parts.length >= 2) {
+      const anneeLeurre = parseInt(parts[0]);
+      const anneeSpectateur = parseInt(parts[parts.length - 1]);
+      if (!isNaN(anneeLeurre) && !isNaN(anneeSpectateur)) {
+        state.annivAnneeLeurre = anneeLeurre;
+        state.annivAnneeSpectateur = anneeSpectateur;
+        state.annivStep = 2;
+        state.annivInputBuffer = '';
+        state.currentLineIndex++;
+        state.displayLines.push('');
+        renderDisplay();
+      }
     }
     return;
   }
 
   if (step === 4) {
-    // Saisie libre : nouvelle ligne
     state.currentLineIndex++;
     state.displayLines.push('');
     renderDisplay();
   }
 }
 
-function calculerMoisNaissance(signeCode, jour, anneeLeurre, anneeSpectateur) {
-  const moisNaissance = SIGNES_MOIS[signeCode];
+function calculerMoisNaissance(jour, anneeLeurre, anneeSpectateur) {
+  const moisNaissance = SIGNES_MOIS[state.annivSigne];
   if (!moisNaissance) return "Signe invalide";
 
-  // Jour de la semaine de la vraie date de naissance
-  let realDate;
-  try {
-    realDate = new Date(anneeSpectateur, moisNaissance - 1, jour);
-  } catch(e) {
-    return "Date invalide";
-  }
-  const jourSemaineCible = realDate.getDay(); // 0=dim ... 6=sam
+  const realDate = new Date(anneeSpectateur, moisNaissance - 1, jour);
+  const jourSemaineCible = realDate.getDay();
 
-  // Chercher dans quelle mois, avec l'année leurre, ce même jour tombe
   for (let m = 1; m <= 12; m++) {
-    try {
-      const d = new Date(anneeLeurre, m - 1, jour);
-      if (d.getDate() === jour && d.getDay() === jourSemaineCible) {
-        return MOIS[m - 1];
-      }
-    } catch(e) {}
+    const d = new Date(anneeLeurre, m - 1, jour);
+    if (d.getDate() === jour && d.getDay() === jourSemaineCible) {
+      return MOIS[m - 1];
+    }
   }
   return "Introuvable";
 }
-
-function autoTypeLine(text, lineIndex, callback) {
-  let i = 0;
-  function step() {
-    if (i >= text.length) {
-      if (callback) callback();
-      return;
-    }
-    state.displayLines[lineIndex] = text.substring(0, i + 1);
-    i++;
-    renderDisplay();
-    setTimeout(step, 80);
-  }
-  step();
-}
-
-// ============================================================
-// ENTER
-// ============================================================
-async function handleEnter() {
-
-  if (currentNoteMode === 'anniv') {
-    annivHandleEnter();
-    return;
-  }
-
-  if (currentNoteMode === 'bcgis') {
-    if (state.phase === 'bcgis-free' || state.phase === 'bcgis-cover') {
-      state.currentLineIndex++;
-      state.displayLines.push('');
-      state.phase = 'bcgis-free';
-      renderDisplay();
-    }
-    return;
-  }
-
   // Wikipedia
   if (state.currentLineIndex === 0 && state.phase === 'title') {
     state.currentLineIndex = 1;
