@@ -720,6 +720,11 @@ function annivHandleChar(char) {
 function annivHandleEnter() {
   const step = state.annivStep;
   const buf = state.annivInputBuffer.trim();
+  if (step === 0 || step === 1) {
+   if (!buf) return;
+  }
+
+  
 
   if (step === 0) {
     // Parser "7   24" → signe et jour
@@ -740,8 +745,7 @@ function annivHandleEnter() {
     return;
   }
 
-  if (step === 1) {
-    // Parser "1985   1975" → année leurre et année réelle
+    if (step === 1) {
     const parts = buf.split(/\s+/);
     if (parts.length >= 2) {
       const anneeLeurre = parseInt(parts[0]);
@@ -751,8 +755,9 @@ function annivHandleEnter() {
         state.annivAnneeSpectateur = anneeSpectateur;
         state.annivStep = 2;
         state.annivInputBuffer = '';
-        state.currentLineIndex++;
-        state.displayLines.push('');
+        // ❌ Supprimer ces deux lignes :
+        // state.currentLineIndex++;
+        // state.displayLines.push('');
         renderDisplay();
       }
     }
